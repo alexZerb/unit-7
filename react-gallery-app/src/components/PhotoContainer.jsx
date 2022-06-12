@@ -1,25 +1,29 @@
-import Photo from "./Photo";
 
 const PhotoContainer = (props) => {
-  
-  let images;
-  const photoList = props.data;
+  const photoData = props.data;
+  const query = props.searchText;
+  console.log(query);
 
-  if(photoList.length > 0) {    
-    images = photoList.map( (photo, index) => 
-      <Photo server={photo.server} secret={photo.secret} key={index} alt={props.altTag} />   
-    )
-  }
+  
+  const photos = photoData.map((photo, index) => {
+    return (
+      <li key={index}>
+        <img src={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_w.jpg`} alt={query} />
+      </li>
+    );
+  });
+
   
   return(
+    
     <div className='photo-container'>
-      <h2>Photos</h2>
+      <h2>{query}</h2>
       <ul>
-        {images}
+        {photos}
       </ul>
-
     </div>
   );
+  
 }
 
 export default PhotoContainer;
